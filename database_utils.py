@@ -52,6 +52,16 @@ class Db_utils:
         results = self.cursor.fetchall()
         return results
 
+    def last_night_good(self):
+        yesterday = self.get_today_date() - 1
+        command = (
+            f"UPDATE {self.table} "
+            f"SET night_good = 1 "
+            f"WHERE date = {yesterday}"
+        )
+        self.cursor.execute(command)
+        self.connection.commit()
+
     def update_diet_existing_date(self, diet, existing_date):
         command = (
             f"UPDATE {self.table} "
